@@ -158,7 +158,7 @@ case $ENDPOINT in
     uptime)
         RESULT=$(tr-064 /upnp/control/deviceinfo DeviceInfo:1 GetInfo)
         if authorized ; then
-            secs=$(echo "$RESULT" | jq '.NewUpTime')
+            secs=$(echo "$RESULT" | jq -r '.NewUpTime')
             [ "$HUMAN" == "true" ] && sec2str $secs || echo $secs
         fi
     ;;
