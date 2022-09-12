@@ -1,12 +1,11 @@
 # TR-064  Admintool
 
-This  script reads ans set some values in tr-064 managed devices. 
+This  script reads and set some values in tr-064 managed devices like AVM Fritzbox.
 
 
 # Requirements:
  - bash
  - gnutools (sed,grep)
- - xmlstarlet
  - jq 
  - yq # (pip install yq)
 
@@ -16,7 +15,7 @@ For **yq** you need a python environment with pip to install.
 
 # Variables
 
-Environment variables for auth can be set in source files.
+Environment variables for authorization can/must be set in source files.
 
   - /usr/local/etc/tr064vars
   - $HOME/.tr064vars
@@ -44,9 +43,9 @@ CONNTYPE=DSL
 
     tr064adm.sh uptime   [ -H ] # humanreadble
 
-    tr064adm.sh hosts list [ --all ] [ --output <json|xml|*hosts*>
+    tr064adm.sh hosts [ --all ] [ --output <json|xml|*hosts*>
 
-    tr064adm.sh devicelog
+    tr064adm.sh logs
 
     tr064adm.sh portmapping <list|info|add|delete> -p UDP|TCP  -e 1194 -c <ip>
     tr064adm.sh portmapping add -p TCP  -e 21
