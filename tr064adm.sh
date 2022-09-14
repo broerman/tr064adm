@@ -293,6 +293,20 @@ case $ENDPOINT in
     voip)
        tr-064 /upnp/control/x_voip X_VoIP:1 X_AVM-DE_GetClients | jq -r '."NewX_AVM-DE_ClientList"' | xq  '.List.Item[]'
     ;;
+    x_voip)
+      tr-064 /upnp/control/x_voip X_VoIP:1 $ACTION
+    ;;
+    contact)
+      case $ACTION in 
+      GetCallList|calllist)
+          RESULT=$(tr-064 /upnp/control/x_contact X_AVM-DE_OnTel:1 $ACTION)
+
+          URL=$(echo "$RESULT" | jq -r ".NewCallListURL")
+          echo $URL
+      ;;
+      *) usage;;
+      esac
+    ;;
 
     *) usage ;;
 
