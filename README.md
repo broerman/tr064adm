@@ -59,3 +59,4 @@ Referenz:
 
 https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AVM_TR-064_first_steps.pdf
 
+curl -s http://fritz.box:49000/tr64desc.xml | xq -c '.root.device.serviceList.service' | jq

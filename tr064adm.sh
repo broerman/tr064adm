@@ -297,12 +297,16 @@ case $ENDPOINT in
       tr-064 /upnp/control/x_voip X_VoIP:1 $ACTION
     ;;
     contact)
-      case $ACTION in 
+      case $ACTION in
       GetCallList|calllist)
-          RESULT=$(tr-064 /upnp/control/x_contact X_AVM-DE_OnTel:1 $ACTION)
+          RESULT=$(tr-064 /upnp/control/x_contact X_AVM-DE_OnTel:1 GetCallList)
 
           URL=$(echo "$RESULT" | jq -r ".NewCallListURL")
-          echo $URL
+          curl -s -k  $URL \
+            | xq \
+            | jq '.root.Call|sort_by(.Id)' \
+            | jq -r '.[]|"\(.Id) \(.Date) \(.Name)\t\(.Caller) \(.CallNumber) \(.Called) \(.CalledNumber)"'
+
       ;;
       *) usage;;
       esac
